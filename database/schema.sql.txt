@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS water_purity_db;
+
+USE water_purity_db;
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP
+);
+
+-- Water analysis history
+CREATE TABLE IF NOT EXISTS water_history (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    analysis_type VARCHAR(20) NOT NULL,
+    ph DECIMAL(10,2) NULL,
+    hardness DECIMAL(10,2) NULL,
+    solids DECIMAL(10,2) NULL,
+    chloramines DECIMAL(10,2) NULL,
+    organic_carbon DECIMAL(10,2) NULL,
+    turbidity DECIMAL(10,2) NULL,
+    tds DECIMAL(10,2) NULL,
+    prediction INT NOT NULL,
+    probability DECIMAL(10,2) NULL,
+    created_at TIMESTAMP,
+    
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
